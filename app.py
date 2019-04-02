@@ -1,13 +1,26 @@
 import os
 
-import pandas as pd
 import numpy as np
 
 import sqlalchemy
+
+# SQL Alchemy
+from sqlalchemy import create_engine
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
+# PyMySQL 
+import pymysql
+pymysql.install_as_MySQLdb()
+
+# Config variables
+from config import remote_db_endpoint, remote_db_port
+from config import remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd
+
+
+# Import Pandas
+import pandas as pd
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
@@ -18,17 +31,22 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/bellybutton.sqlite"
-db = SQLAlchemy(app)
+# AWS Database Connection
+engine = create_engine(f"mysql://{remote_dccrime_dbuser}:{remote_dccrime_dbpwd}@{remote_db_endpoint}:{remote_db_port}/{remote_dccrime_dbname}")
+# Create a remote database engine connection
+conn = engine.connect()
 
+
+#FROM JIMMY PROBABLY DELETE
 # reflect an existing database into a new model
-Base = automap_base()
+#Base = automap_base()
 # reflect the tables
-Base.prepare(db.engine, reflect=True)
+#Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
-Samples_Metadata = Base.classes.sample_metadata
-Samples = Base.classes.samples
+#Samples_Metadata = Base.classes.sample_metadata
+#Samples = Base.classes.samples
+
 
 
 @app.route("/")
@@ -37,16 +55,14 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/names")
-def names():
+@app.route("/data")
+def crime_data():
     """Return a list of sample names."""
 
     # Use Pandas to perform the sql query
-    stmt = db.session.query(Samples).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
+    remote_crime_data = pd.read_sql("SELECT * FROM crime_incidents_all", conn)
+    return(remote_crime_data.to_dict(orient="records"))
 
-    # Return a list of the column names (sample names)
-    return jsonify(list(df.columns)[2:])
 
 
 @app.route("/metadata/<sample>")
