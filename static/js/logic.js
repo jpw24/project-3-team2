@@ -18,8 +18,8 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 var baseURL = "/data"
 
 // Grab the data with d3
-d3.json(baseURL, function(response) {
-  console.log(response[10]);
+d3.json(baseURL).then( function(response) {
+  console.log(response);
   // Create a new marker cluster group
   var markers = L.markerClusterGroup();
 
@@ -29,7 +29,7 @@ d3.json(baseURL, function(response) {
     // Set the data location property to a variable
     // Check for location property
     // Add a new marker to the cluster group and bind a pop-up
-    markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUTDE]));
+    markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]));
         //.bindPopup(response[i].descriptor + "<hr>" + response[i].cross_street_1 + "<br>" + response[i].cross_street_2));
 
   }
