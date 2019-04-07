@@ -64,7 +64,14 @@ def crime_data():
     #print(remote_crime_data.to_dict(orient="records"))
     return(jsonify(remote_crime_data.to_dict(orient="records")))
 
+@app.route("/ward_data")
+def ward_data():
+    """Return a list of sample names."""
 
+    # Use Pandas to perform the sql query
+    remote_ward_data = pd.read_sql("SELECT * FROM dc_wards", conn)
+    #print(remote_crime_data.to_dict(orient="records"))
+    return(jsonify(remote_ward_data.to_dict(orient="records")))
 
 #@app.route("/metadata/<sample>")
 #def sample_metadata(sample):
