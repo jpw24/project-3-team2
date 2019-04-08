@@ -60,7 +60,8 @@ def crime_data():
     """Return a list of sample names."""
 
     # Use Pandas to perform the sql query
-    remote_crime_data = pd.read_sql("SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all", conn)
+    query_all = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
+    remote_crime_data = pd.read_sql(query_all, conn)
     #print(remote_crime_data.to_dict(orient="records"))
     return(jsonify(remote_crime_data.to_dict(orient="records")))
 
@@ -103,22 +104,25 @@ def ward_data():
 #    return jsonify(sample_metadata)
 
 
-@app.route("/samples/<sample>")
-def samples(sample):
-    """Return `otu_ids`, `otu_labels`,and `sample_values`."""
-    stmt = db.session.query(Samples).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
+@app.route("/type/<ctype>")
+def crimeType(ctype):
+    
+    query_all = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
+    remote_crime_data = pd.read_sql(query_all, conn)
 
-    # Filter the data based on the sample number and
-    # only keep rows with values above 1
-    sample_data = df.loc[df[sample] > 1, ["otu_id", "otu_label", sample]]
-    # Format the data to send as json
-    data = {
-        "otu_ids": sample_data.otu_id.values.tolist(),
-        "sample_values": sample_data[sample].values.tolist(),
-        "otu_labels": sample_data.otu_label.tolist(),
-    }
-    return jsonify(data)
+    crime_filter = remote_crime_data.loc[remote_crime_data['OFFENSE'] == ctype]
+
+    return(jsonify(crime_filter.to_dict(orient="records")))
+
+@app.route("/location/<ward>")
+def wardNumber(ward):
+    
+    query_all1 = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
+    remote_crime_data1 = pd.read_sql(query_all1, conn)
+
+    crime_filter1 = remote_crime_data1.loc[remote_crime_data1['WARD'] == int(ward)]
+
+    return(jsonify(crime_filter1.to_dict(orient="records")))
 
 
 if __name__ == "__main__":
