@@ -21,7 +21,7 @@ from config import remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_
 
 # Import Pandas
 import pandas as pd
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -58,12 +58,16 @@ def index():
 @app.route("/data")
 def crime_data():
     """Return a list of sample names."""
-
+    ward = request.args.get("WARD")
+    offense = request.args.get("OFFENSE")
     # Use Pandas to perform the sql query
-    query_all = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
+    query_all = f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE WARD = {ward} AND OFFENSE = {offense}"
+    
     remote_crime_data = pd.read_sql(query_all, conn)
     #print(remote_crime_data.to_dict(orient="records"))
     return(jsonify(remote_crime_data.to_dict(orient="records")))
+
+    # json FILTERING....filter by ward and type on this endpoint
 
 @app.route("/ward_data")
 def ward_data():
@@ -104,25 +108,25 @@ def ward_data():
 #    return jsonify(sample_metadata)
 
 
-@app.route("/type/<ctype>")
-def crimeType(ctype):
+#@app.route("/type/<ctype>")
+#def crimeType(ctype):
     
-    query_all = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
-    remote_crime_data = pd.read_sql(query_all, conn)
+#    query_all = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
+#    remote_crime_data = pd.read_sql(query_all, conn)
 
-    crime_filter = remote_crime_data.loc[remote_crime_data['OFFENSE'] == ctype]
+#    crime_filter = remote_crime_data.loc[remote_crime_data['OFFENSE'] == ctype]
 
-    return(jsonify(crime_filter.to_dict(orient="records")))
+#    return(jsonify(crime_filter.to_dict(orient="records")))
 
-@app.route("/location/<ward>")
-def wardNumber(ward):
+#@app.route("/location/<ward>")
+#def wardNumber(ward):
     
-    query_all1 = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
-    remote_crime_data1 = pd.read_sql(query_all1, conn)
+#    query_all1 = "SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all"
+#    remote_crime_data1 = pd.read_sql(query_all1, conn)
 
-    crime_filter1 = remote_crime_data1.loc[remote_crime_data1['WARD'] == int(ward)]
+#    crime_filter1 = remote_crime_data1.loc[remote_crime_data1['WARD'] == int(ward)]
 
-    return(jsonify(crime_filter1.to_dict(orient="records")))
+#    return(jsonify(crime_filter1.to_dict(orient="records")))
 
 
 if __name__ == "__main__":
