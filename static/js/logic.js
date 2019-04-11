@@ -55,6 +55,11 @@ function buildCharts(filter) {
 
 
   });
+  //reena code
+  //var reena_chart_url="/charts_data".concat("?OFFENSE='",filter.offense,"'&WARD=",filter.ward.toString())
+  //d3.json(reena_chart_url).then((response)=>{
+
+  //})
 
 //  console.log(users)
 
@@ -167,8 +172,6 @@ function init() {
   var wardSelector = d3.select("#selWard")
 
   // Use the list of sample names to populate the select options
-  //wardSelector.append("option").text("All").property("value","All");
-  //offenseSelector.append("option").text("All").property("value","All");
   /*d3.json("/offense").then((offense_data)=>{
     offense_data.forEach((offense)=>{
       offenseSelector
@@ -198,6 +201,8 @@ function init() {
     // Use the first sample from the list to build the initial plots
     const firstWard = data.ward[0].Ward;
     const firstOffense = data.offense[0].OFFENSE;
+    wardSelector.append("option").text("All").property("value","All");
+    offenseSelector.append("option").text("All").property("value","All");
     var firstFilter = {
       offense: firstOffense,
       ward: firstWard

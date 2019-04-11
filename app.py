@@ -85,6 +85,14 @@ def offense_data():
     result_dict={"ward": ward_dict,"offense":offense_dict}
     return(jsonify(result_dict))
 
+@app.route("/charts_data")
+def num_crimes():
+    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all"
+    charts_crime_data = pd.read_sql(query_all, conn)
+    #print(remote_crime_data.to_dict(orient="records"))
+    return(jsonify(charts_crime_data.to_dict(orient="records")))
+
+
 @app.route("/ward_data")
 def ward_data():
     """Return a list of sample names."""
