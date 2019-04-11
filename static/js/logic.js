@@ -15,55 +15,46 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 }).addTo(myMap);
 
 // Store API query variables
-var baseURL = "/data"
 
 // Grab the data with d3
-d3.json(baseURL).then(function (response) {
+/*d3.json(baseURL).then(function (response) {
   //console.log(response);
   // Create a new marker cluster group
-  var markers = L.markerClusterGroup();
 
-  // Loop through data
-  for (var i = 0; i < response.length; i++) {
-
-    // Set the data location property to a variable
-    // Check for location property
-    // Add a new marker to the cluster group and bind a pop-up
-    markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]));
-    //.bindPopup(response[i].descriptor + "<hr>" + response[i].cross_street_1 + "<br>" + response[i].cross_street_2));
-
-  }
-
-  // Add our marker cluster layer to the map
-  myMap.addLayer(markers);
-
-});
+});*/
 
 //INFO FOR JIMMY
 
-
-//function buildCharts() {
-//d3.json(baseURL).then((data) => {
-  //var filter = {
-   // OFFENSE: 'ROBBERY',
-    //WARD: 1
- // };
-
-  //users = data.filter(function (item) {
-    //for (var key in filter) {
-   // console.log(item.WARD)
-    //return (item.WARD === filter.WARD && item.TYPE ===filter.TYPE);
+var baseURL="/data"
 
 
-    //if (item[key] === undefined || item[key] != filter[key])
-    //  return false;
-    //}
-    //return true;
- // });
+function buildCharts(filter) {
+  var chart_url=baseURL.concat("?OFFENSE='",filter.offense,"'&WARD=",filter.ward.toString())
+  console.log(filter.offense);
+  //building the map
+  d3.json(chart_url).then((response) => {
+    var markers = L.markerClusterGroup();
 
- // console.log(users)
+    // Loop through data
+    for (var i = 0; i < response.length; i++) {
+  
+      // Set the data location property to a variable
+      // Check for location property
+      // Add a new marker to the cluster group and bind a pop-up
+      markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]));
+      //.bindPopup(response[i].descriptor + "<hr>" + response[i].cross_street_1 + "<br>" + response[i].cross_street_2));
+  
+    }
+  
+    // Add our marker cluster layer to the map
+    myMap.addLayer(markers);
+  
 
-//});
+  });
+
+//  console.log(users)
+
+}
 
 
 
@@ -115,49 +106,6 @@ Plotly.plot("pie", pieData, pieLayout);
 });
 }
 
-
-
-
-
-
-
-
-
-
-
-function init() {
-// Grab a reference to the dropdown select element
-var selector = d3.select("#selDataset");
-
-// Use the list of sample names to populate the select options
-d3.json("/names").then((sampleNames) => {
-sampleNames.forEach((sample) => {
-  selector
-    .append("option")
-    .text(sample)
-    .property("value", sample);
-});
-
-// Use the first sample from the list to build the initial plots
-const firstSample = sampleNames[0];
-buildCharts(firstSample);
-buildMetadata(firstSample);
-});
-}
-
-
-function optionChanged(filter) {
-// Fetch new data each time a new sample is selected
-buildCharts(filter);
-}
-
-// Initialize the dashboard
-init();
-
-
-
-
-
 /* FILTERING EXAMPLE
 
 var filter = {
@@ -185,94 +133,9 @@ address: 'England'
 ];
 
 
-users= users.filter(function(item) {
-for (var key in filter) {
-if (item[key] === undefined || item[key] != filter[key])
-  return false;
-}
-return true;
-});
-
-console.log(users)
-
-*/
 
 
 
-
-
-
-
-
-
-// FILTERING SECTION ********************************************
-//********************************************
-//********************************************
-//********************************************
-//********************************************
-
-// Populated Metadata Panel with data for each selected sample
-/*function typeFilter(sample) {
-
-  var selector = d3.select("#sample-metadata");
-
-  selector.html("");
-  var url_meta = `/metadata/${sample}`
-
-  d3.json(url_meta).then(function(data) {
-
-    Object.entries(data).forEach(function([key, value]) {
-      var cell = selector.append("div");
-      var key_format = key.toUpperCase();
-      cell.text(`${key_format}: ${value}`);
-
-  });
-
-  });
-}
-
-
-/* THIS SECTION TO INITIALIZE WHAT IS FIRST SEEN ON THE PAGE
-****************************************************************************************
-
-// Initializes the application.
-function init() {
-  // Grab a reference to the dropdown select element
-  var selector = d3.select("#selDataset");
-
-  // Use the list of sample names to populate the select options
-  d3.json("/names").then((sampleNames) => {
-    sampleNames.forEach((sample) => {
-      selector
-        .append("option")
-        .text(sample)
-        .property("value", sample);
-    });
-
-    // Use the first sample from the list to build the initial plots
-    const firstSample = sampleNames[0];
-    buildCharts(firstSample);
-    buildMetadata(firstSample);
-  });
-}
-
-function optionChanged(newSample) {
-  // Fetch new data each time a new sample is selected
-  buildCharts(newSample);
-  buildMetadata(newSample);
-}
-
-// Initialize the dashboard
-init();
-
-
-
-/* STORING EVENT LISTENERS I WILL NEED
-****************************************************************************************
-
-// Add event listener for submit button
-d3.select("#submit").on("click", handleSubmit);
-*/
 
 
 
@@ -300,8 +163,8 @@ function init() {
   var wardSelector = d3.select("#selWard")
 
   // Use the list of sample names to populate the select options
-  wardSelector.append("option").text("All").property("value","All");
-  offenseSelector.append("option").text("All").property("value","All");
+  //wardSelector.append("option").text("All").property("value","All");
+  //offenseSelector.append("option").text("All").property("value","All");
   d3.json("/offense").then((offense_data)=>{
     offense_data.forEach((offense)=>{
       offenseSelector
@@ -309,6 +172,7 @@ function init() {
         .text(offense.OFFENSE)
         .property("value", offense.OFFENSE);
       });
+      const firstOffense = offense_data[0].OFFENSE;
     });
     
   d3.json("/ward_data").then((ward_data) => {
@@ -322,10 +186,13 @@ function init() {
         //.append ALL here?
     });
     // Use the first sample from the list to build the initial plots
-    //const firstSample = sampleNames[0]; //??
-    //buildCharts(firstSample);
+    const firstWard = ward_data[0].Ward; //??
   });
- // 
+  var firstFilter = {
+    offense: firstOffense,
+    ward: firstWard
+  };
+  buildCharts(firstFilter);
 }
 
 function filterSubmit() {
