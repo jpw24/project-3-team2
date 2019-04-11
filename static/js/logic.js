@@ -294,3 +294,50 @@ d3.json(url_ward).then(function(response) {
 }
 comboTest("HOMICIDE", 1) */
 
+function init() {
+  // Grab a reference to the dropdown select element
+  var offenseSelector = d3.select("#selType");
+  var wardSelector = d3.select("#selWard")
+
+  // Use the list of sample names to populate the select options
+  d3.json("/names").then((sampleNames) => {
+    sampleNames.forEach((sample) => {
+      offenseSelector
+        .append("option")
+        .text(sample)
+        .property("value", sample);
+        //.append ALL here?
+      wardSelector
+        .append("option")
+        .text(sample)
+        .property("value", sample);
+        //.append ALL here?
+    });
+
+    // Use the first sample from the list to build the initial plots
+    //const firstSample = sampleNames[0]; //??
+    //buildCharts(firstSample);
+  });
+}
+
+function filterSubmit() {
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
+
+  // Select inputs from the filter dropdowns
+  var offenseFilter = d3.select("#selType").node().value;
+  console.log(offenseFilter);
+  var wardFilter = d3.select("#selWard").node().value;
+  console.log(wardFilter);
+
+  var filter = {
+    offense: offenseFilter,
+    ward: wardFilter
+  };
+
+  // CALL THE BUILD CHARTS FUNCTION(S) PASSING IN THE FILTER
+  buildCharts(filter); //or whatever the function is called
+}
+
+// EVENT LISTENER FOR PLOT DATA BUTTON
+d3.select("#submit").on("click", filterSubmit);
