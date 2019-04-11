@@ -27,28 +27,32 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 
 var baseURL="/data"
 
-
+var layer;
 function buildCharts(filter) {
   var chart_url=baseURL.concat("?OFFENSE='",filter.offense,"'&WARD=",filter.ward.toString())
   console.log(filter.offense);
   //building the map
   d3.json(chart_url).then((response) => {
     var markers = L.markerClusterGroup();
-
+    if (layer){
+      layer.clearLayers();
+    }
     // Loop through data
     for (var i = 0; i < response.length; i++) {
   
       // Set the data location property to a variable
       // Check for location property
       // Add a new marker to the cluster group and bind a pop-up
-      markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]));
-      //.bindPopup(response[i].descriptor + "<hr>" + response[i].cross_street_1 + "<br>" + response[i].cross_street_2));
+      markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]))
+        //.bindPopup("Shift: "+response[i].SHIFT);// + "<hr>" + response[i].cross_street_1 + "<br>" + response[i].cross_street_2);
   
     }
-  
+    layer=markers;
+
     // Add our marker cluster layer to the map
     myMap.addLayer(markers);
-  
+    //markers.clearLayers();
+
 
   });
 
@@ -165,7 +169,7 @@ function init() {
   // Use the list of sample names to populate the select options
   //wardSelector.append("option").text("All").property("value","All");
   //offenseSelector.append("option").text("All").property("value","All");
-  d3.json("/offense").then((offense_data)=>{
+  /*d3.json("/offense").then((offense_data)=>{
     offense_data.forEach((offense)=>{
       offenseSelector
         .append("option")
@@ -174,25 +178,33 @@ function init() {
       });
       const firstOffense = offense_data[0].OFFENSE;
     });
-    
-  d3.json("/ward_data").then((ward_data) => {
+    */
+  d3.json("/ward_offense").then((data) => {
     //console.log(ward_data);
-    ward_data.forEach((ward) => {
+    data.ward.forEach((ward) => {
         //.append ALL here?
       wardSelector
         .append("option")
         .text(ward.Ward)
         .property("value", ward.Ward);
-        //.append ALL here?
+      });
+    data.offense.forEach((offense)=>{
+      offenseSelector
+        .append("option")
+        .text(offense.OFFENSE)
+        .property("value",offense.OFFENSE)
     });
+    //.append ALL here?
     // Use the first sample from the list to build the initial plots
-    const firstWard = ward_data[0].Ward; //??
+    const firstWard = data.ward[0].Ward;
+    const firstOffense = data.offense[0].OFFENSE;
+    var firstFilter = {
+      offense: firstOffense,
+      ward: firstWard
+    };
+    buildCharts(firstFilter); //??
   });
-  var firstFilter = {
-    offense: firstOffense,
-    ward: firstWard
-  };
-  buildCharts(firstFilter);
+
 }
 
 function filterSubmit() {

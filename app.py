@@ -76,10 +76,14 @@ def crime_data():
 
 
 
-@app.route("/offense")
+@app.route("/ward_offense")
 def offense_data():
     remote_offense_data=pd.read_sql("SELECT DISTINCT OFFENSE FROM crime_incidents_all",conn)
-    return(jsonify(remote_offense_data.to_dict(orient="records")))
+    offense_dict=remote_offense_data.to_dict(orient="records")
+    remote_ward_data = pd.read_sql("SELECT * FROM dc_wards", conn)
+    ward_dict=remote_ward_data.to_dict(orient="records")
+    result_dict={"ward": ward_dict,"offense":offense_dict}
+    return(jsonify(result_dict))
 
 @app.route("/ward_data")
 def ward_data():
