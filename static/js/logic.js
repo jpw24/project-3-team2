@@ -39,19 +39,19 @@ d3.json(baseURL).then(function (response) {
 
 });
 
-
+//INFO FOR JIMMY
 
 
 //function buildCharts() {
-d3.json(baseURL).then((data) => {
-  var filter = {
-    OFFENSE: 'ROBBERY',
-    WARD: 1
-  };
+//d3.json(baseURL).then((data) => {
+  //var filter = {
+   // OFFENSE: 'ROBBERY',
+    //WARD: 1
+ // };
 
-  users = data.filter(function (item) {
+  //users = data.filter(function (item) {
     //for (var key in filter) {
-    console.log(item.WARD)
+   // console.log(item.WARD)
     //return (item.WARD === filter.WARD && item.TYPE ===filter.TYPE);
 
 
@@ -59,11 +59,11 @@ d3.json(baseURL).then((data) => {
     //  return false;
     //}
     //return true;
-  });
+ // });
 
-  console.log(users)
+ // console.log(users)
 
-});
+//});
 
 
 
@@ -300,24 +300,32 @@ function init() {
   var wardSelector = d3.select("#selWard")
 
   // Use the list of sample names to populate the select options
-  d3.json("/names").then((sampleNames) => {
-    sampleNames.forEach((sample) => {
+  wardSelector.append("option").text("All").property("value","All");
+  offenseSelector.append("option").text("All").property("value","All");
+  d3.json("/offense").then((offense_data)=>{
+    offense_data.forEach((offense)=>{
       offenseSelector
         .append("option")
-        .text(sample)
-        .property("value", sample);
+        .text(offense.OFFENSE)
+        .property("value", offense.OFFENSE);
+      });
+    });
+    
+  d3.json("/ward_data").then((ward_data) => {
+    //console.log(ward_data);
+    ward_data.forEach((ward) => {
         //.append ALL here?
       wardSelector
         .append("option")
-        .text(sample)
-        .property("value", sample);
+        .text(ward.Ward)
+        .property("value", ward.Ward);
         //.append ALL here?
     });
-
     // Use the first sample from the list to build the initial plots
     //const firstSample = sampleNames[0]; //??
     //buildCharts(firstSample);
   });
+ // 
 }
 
 function filterSubmit() {
@@ -341,3 +349,4 @@ function filterSubmit() {
 
 // EVENT LISTENER FOR PLOT DATA BUTTON
 d3.select("#submit").on("click", filterSubmit);
+init();

@@ -61,13 +61,25 @@ def crime_data():
     ward = request.args.get("WARD")
     offense = request.args.get("OFFENSE")
     # Use Pandas to perform the sql query
-    query_all = f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE WARD = {ward} AND OFFENSE = {offense}"
+    if ward=="All" and offense=="All":
+        query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all LIMIT 9000"
+    elif ward=="All":
+        query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE OFFENSE = {offense}"
+    elif offense=="All":
+        query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE WARD ={ward}"
+    else:
+        query_all = f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE WARD = {ward} AND OFFENSE = {offense}"
     
     remote_crime_data = pd.read_sql(query_all, conn)
     #print(remote_crime_data.to_dict(orient="records"))
     return(jsonify(remote_crime_data.to_dict(orient="records")))
 
-    # json FILTERING....filter by ward and type on this endpoint
+
+
+@app.route("/offense")
+def offense_data():
+    remote_offense_data=pd.read_sql("SELECT DISTINCT OFFENSE FROM crime_incidents_all",conn)
+    return(jsonify(remote_offense_data.to_dict(orient="records")))
 
 @app.route("/ward_data")
 def ward_data():
