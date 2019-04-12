@@ -106,6 +106,10 @@ def ward_data():
     #print(remote_crime_data.to_dict(orient="records"))
     return(jsonify(remote_ward_data.to_dict(orient="records")))
 
+@app.route("/time_wheel")
+def index2():
+    return render_template("index2.html")
+
 #@app.route("/metadata/<sample>")
 #def sample_metadata(sample):
 #    """Return the MetaData for a given sample."""
