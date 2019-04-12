@@ -104,6 +104,7 @@ def ward_data():
 
 @app.route("/time_wheel")
 def index2():
+    
     return render_template("index2.html")
 
 #@app.route("/metadata/<sample>")
