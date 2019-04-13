@@ -9,8 +9,17 @@ d3.json("/charts_data").then((response) => {
     var eight_dict = { Ward: 8, crime_count: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
 
     response.forEach((crime) => {
+    //for (i = 0; i < 100; i++) { 
         //JANUARY
-        if (crime.END_DATE.slice(6, 7) === "01") {
+        //one_dict.crime_count[0] += 1;
+        //if (crime.WARD === 1) {
+        //    console.log("JANUARY")
+        //}
+    
+        
+        //console.log("crime end date", crime)
+        if (moment(crime.END_DATE).get('month') === 0) {
+            console.log("YES")
             if (crime.WARD === 1) {
                 one_dict.crime_count[0] += 1;
             }
@@ -35,10 +44,10 @@ d3.json("/charts_data").then((response) => {
             if (crime.WARD === 8) {
                 eight_dict.crime_count[0] += 1;
             }
-        }
-        console.log(one_dict.crime_count)
+        } //console.log(one_dict.crime_count[0])
+        
         //FEBRUARY
-        if (crime.END_DATE.slice(6, 7) === "02") {
+        if (moment(crime.END_DATE).get('month') === 1) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[1] += 1;
             }
@@ -65,7 +74,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //MARCH
-        if (crime.END_DATE.slice(6, 7) === "03") {
+        if (moment(crime.END_DATE).get('month') === 2) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[2] += 1;
             }
@@ -92,7 +101,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //APRIL
-        if (crime.END_DATE.slice(6, 7) === "04") {
+        if (moment(crime.END_DATE).get('month') === 3) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[3] += 1;
             }
@@ -119,7 +128,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //MAY
-        if (crime.END_DATE.slice(6, 7) === "05") {
+        if (moment(crime.END_DATE).get('month') === 4) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[4] += 1;
             }
@@ -146,7 +155,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //JUNE
-        if (crime.END_DATE.slice(6, 7) === "06") {
+        if (moment(crime.END_DATE).get('month') === 5) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[5] += 1;
             }
@@ -173,7 +182,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //JULY
-        if (crime.END_DATE.slice(6, 7) === "07") {
+        if (moment(crime.END_DATE).get('month') === 6) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[6] += 1;
             }
@@ -200,7 +209,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //AUGUST
-        if (crime.END_DATE.slice(6, 7) === "08") {
+        if (moment(crime.END_DATE).get('month') === 7) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[7] += 1;
             }
@@ -227,7 +236,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //SEPTEMBER
-        if (crime.END_DATE.slice(6, 7) === "09") {
+        if (moment(crime.END_DATE).get('month') === 8) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[8] += 1;
             }
@@ -255,7 +264,7 @@ d3.json("/charts_data").then((response) => {
         }
 
         //OCTOBER
-        if (crime.END_DATE.slice(6, 7) === "10") {
+        if (moment(crime.END_DATE).get('month') === 9) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[9] += 1;
             }
@@ -282,7 +291,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //NOVEMBER
-        if (crime.END_DATE.slice(6, 7) === "11") {
+        if (moment(crime.END_DATE).get('month') === 10) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[10] += 1;
             }
@@ -309,7 +318,7 @@ d3.json("/charts_data").then((response) => {
             }
         }
         //DECEMBER
-        if (crime.END_DATE.slice(6, 7) === "12") {
+        if (moment(crime.END_DATE).get('month') === 11) {
             if (crime.WARD === 1) {
                 one_dict.crime_count[11] += 1;
             }
@@ -388,7 +397,7 @@ d3.json("/charts_data").then((response) => {
             pointRadius: 4,
             pointHitRadius: 10,
             // notice the gap in the data and the spanGaps: true
-            data: [21, 11, 3, 18, 50, 75, 44, 22, 64, 55, 32, 38],
+            data: two_dict.crime_count,
             spanGaps: true,
         }, {
             label: "Ward 3",
@@ -410,7 +419,7 @@ d3.json("/charts_data").then((response) => {
             pointRadius: 4,
             pointHitRadius: 10,
             // notice the gap in the data and the spanGaps: true
-            data: [60, 50, 70, 80, 51, 35, 90, 33, 20, 75, 37, 58],
+            data: three_dict.crime_count,
             spanGaps: true,
         }, {
             label: "Ward 4",
@@ -432,7 +441,7 @@ d3.json("/charts_data").then((response) => {
             pointRadius: 4,
             pointHitRadius: 10,
             // notice the gap in the data and the spanGaps: true
-            data: [88, 35, 82, 80, 5, 10, 48, 52, 70, 45, 25, 48],
+            data: four_dict.crime_count,
             spanGaps: true,
         }, {
             label: "Ward 5",
@@ -454,7 +463,7 @@ d3.json("/charts_data").then((response) => {
             pointRadius: 4,
             pointHitRadius: 10,
             // notice the gap in the data and the spanGaps: true
-            data: [55, 9, 82, 33, 77, 58, 44, 22, 67, 57, 40, 68],
+            data: five_dict.crime_count,
             spanGaps: true,
         }, {
             label: "Ward 6",
@@ -476,7 +485,7 @@ d3.json("/charts_data").then((response) => {
             pointRadius: 4,
             pointHitRadius: 10,
             // notice the gap in the data and the spanGaps: true
-            data: [5, 15, 30, 60, 44, 23, 66, 76, 30, 95, 70, 72],
+            data: six_dict.crime_count,
             spanGaps: true,
         }, {
             label: "Ward 7",
@@ -498,7 +507,7 @@ d3.json("/charts_data").then((response) => {
             pointRadius: 4,
             pointHitRadius: 10,
             // notice the gap in the data and the spanGaps: true
-            data: [60, 51, 85, 21, 86, 75, 80, 22, 10, 75, 47, 88],
+            data: seven_dict.crime_count,
             spanGaps: true,
         }, {
             label: "Ward 8",
@@ -520,7 +529,7 @@ d3.json("/charts_data").then((response) => {
             pointRadius: 4,
             pointHitRadius: 10,
             // notice the gap in the data and the spanGaps: true
-            data: [25, 39, 50, 41, 66, 75, 20, 50, 70, 35, 20, 68],
+            data: eight_dict.crime_count,
             spanGaps: true,
         },
 
