@@ -338,7 +338,7 @@ if (crime.END_DATE.slice(6,7)==="12"){
         eight_dict.crime_count[11]+=1;
     }
     }
-  }
+  })
 
 
 var canvas = document.getElementById("barChart");
