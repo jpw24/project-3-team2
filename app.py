@@ -107,6 +107,10 @@ def index2():
     
     return render_template("index2.html")
 
+@app.route("/line_chart")
+def index3():
+    return render_template("index3.html")
+
 #@app.route("/metadata/<sample>")
 #def sample_metadata(sample):
 #    """Return the MetaData for a given sample."""
