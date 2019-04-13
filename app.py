@@ -87,9 +87,9 @@ def offense_data():
 
 @app.route("/charts_data")
 def num_crimes():
-    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all"
+    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all LIMIT 100"
     charts_crime_data = pd.read_sql(query_all, conn)
-    #print(remote_crime_data.to_dict(orient="records"))
+    print(charts_crime_data.to_dict(orient="records"))
     return(jsonify(charts_crime_data.to_dict(orient="records")))
 
 
@@ -163,4 +163,4 @@ def index3():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
