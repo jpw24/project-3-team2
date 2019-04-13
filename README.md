@@ -12,7 +12,7 @@ This web application allows for the visualization of spatial and temporal trends
 The full web application resides here: https://justice-league-dc.herokuapp.com/
 
 Visualization endpoints: 
-    - https://justice-league-dc.herokuapp.com/line_chart
-        - This endpoint generates a line chart showing crime incidents aggregated by calendar month.
-    - https://justice-league-dc.herokuapp.com/time_wheel
-        - This endpoint generates a time wheel visualization for observing all crime incidents in the context of 24 hours, charting crime incidents to the hourly time of day.
+    * https://justice-league-dc.herokuapp.com/line_chart
+        * This endpoint generates a line chart showing crime incidents aggregated by calendar month.
+    * https://justice-league-dc.herokuapp.com/time_wheel
+        * This endpoint generates a time wheel visualization for observing all crime incidents in the context of 24 hours, charting crime incidents to the hourly time of day.
