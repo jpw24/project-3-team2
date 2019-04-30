@@ -41,23 +41,31 @@
       <div class="col-md-12 text-center">
         <h3>Click on the below images to see each visualization</h3>
         <div class="col-md-6">
+          <h2>DC Crime Map</h2>
+          <h4>Access this page to see where crime is concentrated around the city.</h4>
           <a href="/map">
-          <img src="images/crime_map.JPG" alt="DC Crime Map"width="300" height="300">
+            <img src="{{ url_for('static', filename='images/crime_map.JPG') }}" alt="DC Crime Map"width="600" height="300"></a>
          </a>
         </div>
         <div class="col-md-6">
+            <h2>DC Crime Occurrences Over the Year</h2>
+            <h4>Access this page to see which months crime occurs more frequently in each ward.</h4>
           <a href="/line_chart">
-          <img src="images/line_chart.JPG" alt="DC Crime Line Chart"width="300" height="300">
-         </a>
+            <!--need to do the below for ALL IMAGES not in the html-->
+            <img src="{{ url_for('static', filename='images/line_chart.JPG') }}" alt="DC Crime Occurences Over the Year"width="600" height="300"></a>
         </div>
         <div class="col-md-6">
+          <h2>DC Crime Threat Analysis</h2>
+          <h4>Access this page to see what times of day have the highest concentration of crime.</h4>
           <a href="/time_wheel">
-          <img src="images/time_wheel.JPG" alt="DC Crime Time Wheel" width="300" height="300">
+            <img src="{{ url_for('static', filename='images/time_wheel.JPG') }}" alt="DC Threat Level Time Wheel" width="400" height="300"></a>
          </a>
         </div>
         <div class="col-md-6">
+            <h2>DC Crime Placeholder text</h2>
+            <h4>Access this page to see ____________________.</h4>
           <a href="/">
-          <img src="images/machine_learning.JPG" alt="DC Crime Machine Learning"width="300" height="300">
+            <img src="{{ url_for('static', filename='images/machine_learning.JPG') }}" alt="DC Predictive Model"width="600" height="300"> </a>
          </a>
         </div>
       </div>
