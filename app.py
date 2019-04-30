@@ -50,7 +50,7 @@ conn = engine.connect()
 
 
 @app.route("/")
-def index():
+def home():
     """Return the homepage."""
     return render_template("index.1.html")
 
