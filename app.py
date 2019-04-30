@@ -50,6 +50,11 @@ conn = engine.connect()
 
 
 @app.route("/")
+def home():
+    """Return the homepage."""
+    return render_template("index.1.html")
+
+@app.route("/map")
 def index():
     """Return the homepage."""
     return render_template("index.html")
@@ -87,9 +92,9 @@ def offense_data():
 
 @app.route("/charts_data")
 def num_crimes():
-    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all"
+    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all LIMIT 1000"
     charts_crime_data = pd.read_sql(query_all, conn)
-    #print(remote_crime_data.to_dict(orient="records"))
+    print(charts_crime_data.to_dict(orient="records"))
     return(jsonify(charts_crime_data.to_dict(orient="records")))
 
 
@@ -101,6 +106,15 @@ def ward_data():
     remote_ward_data = pd.read_sql("SELECT * FROM dc_wards", conn)
     #print(remote_crime_data.to_dict(orient="records"))
     return(jsonify(remote_ward_data.to_dict(orient="records")))
+
+@app.route("/time_wheel")
+def index2():
+    
+    return render_template("index2.html")
+
+@app.route("/line_chart")
+def index3():
+    return render_template("index3.html")
 
 #@app.route("/metadata/<sample>")
 #def sample_metadata(sample):
@@ -154,4 +168,4 @@ def ward_data():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

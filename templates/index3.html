@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<body>
+
+
+    <div class="container">
+    <div class="row">
+            <div class="col-md-12 jumbotron text-center">
+                <h1>DC Crime Data Dashboard</h1>
+                <p>Use the interactive charts below to explore the dataset</p>
+            </div>
+            </div>
+        <br />
+        <div class="row">
+            <div clas="col-md-8 text-center">
+                <h3>Crime Occurrences Through The Year, by Ward</h3>
+                <p> Click on each ward and hover over the data points to understand trends.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+    <script>
+        moment().format();
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/crimes.js') }}"></script>
+</body>
+
+</HTML>

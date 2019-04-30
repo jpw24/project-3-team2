@@ -25,8 +25,6 @@
 
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-
 
 </head>
 
@@ -40,21 +38,28 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        <div class="well">
-          <h5 style="color: black">Filter by Crime Type and Ward:</h5>
-          <select style="color: black" id="selType"></select>
-          <select style="color: black" id="selWard"></select>
-          <button style="color: black" id="submit" type="submit" class="btn btn-default">Plot Data</button>
-          <!--onchange="optionChanged(this.value)-->
-          <!--onchange="optionChanged(this.value)-->
+      <div class="col-md-12 text-center">
+        <h3>Click on the below images to see each visualization</h3>
+        <div class="col-md-6">
+          <a href="/map">
+          <img src="images/crime_map.JPG" alt="DC Crime Map"width="300" height="300">
+         </a>
         </div>
-      </div>
-      <div class="col-md-12">
-        <div id="map-crime"></div>
-      </div>
-      <div class="col-md-5">
-        <div id="gauge"></div>
+        <div class="col-md-6">
+          <a href="/line_chart">
+          <img src="images/line_chart.JPG" alt="DC Crime Line Chart"width="300" height="300">
+         </a>
+        </div>
+        <div class="col-md-6">
+          <a href="/time_wheel">
+          <img src="images/time_wheel.JPG" alt="DC Crime Time Wheel" width="300" height="300">
+         </a>
+        </div>
+        <div class="col-md-6">
+          <a href="/">
+          <img src="images/machine_learning.JPG" alt="DC Crime Machine Learning"width="300" height="300">
+         </a>
+        </div>
       </div>
     </div>
   </div>
@@ -62,9 +67,6 @@
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/config.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
 
