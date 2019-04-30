@@ -92,7 +92,7 @@ def offense_data():
 
 @app.route("/charts_data")
 def num_crimes():
-    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all"
+    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all LIMIT 1000"
     charts_crime_data = pd.read_sql(query_all, conn)
     print(charts_crime_data.to_dict(orient="records"))
     return(jsonify(charts_crime_data.to_dict(orient="records")))
