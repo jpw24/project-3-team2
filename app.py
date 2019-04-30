@@ -52,6 +52,11 @@ conn = engine.connect()
 @app.route("/")
 def index():
     """Return the homepage."""
+    
+
+@app.route("/map")
+def index():
+    """Return the homepage."""
     return render_template("index.html")
 
 
