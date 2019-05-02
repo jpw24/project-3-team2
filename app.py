@@ -14,7 +14,7 @@ from sqlalchemy import create_engine
 import pymysql
 pymysql.install_as_MySQLdb()
 
-# Config variables
+# Config variables- change whne uploading!!!!
 #from config import remote_db_endpoint, remote_db_port
 #from config import remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd
 remote_db_endpoint=os.environ['remote_db_endpoint']
@@ -72,7 +72,7 @@ def crime_data():
     offense = request.args.get("OFFENSE")
     # Use Pandas to perform the sql query
     if ward=="All" and offense=="All":
-        query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all LIMIT 9000"
+        query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE OFFENSE IN ('ASSAULT W/DANGEROUS WEAPON', 'SEX ABUSE', 'HOMICIDE', 'ROBBERY') LIMIT 9000"
     elif ward=="All":
         query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE OFFENSE = {offense}"
     elif offense=="All":
@@ -88,7 +88,7 @@ def crime_data():
 
 @app.route("/ward_offense")
 def offense_data():
-    remote_offense_data=pd.read_sql("SELECT DISTINCT OFFENSE FROM crime_incidents_all",conn)
+    remote_offense_data=pd.read_sql("SELECT DISTINCT OFFENSE FROM crime_incidents_all WHERE OFFENSE IN ('ASSAULT W/DANGEROUS WEAPON', 'SEX ABUSE', 'HOMICIDE', 'ROBBERY')",conn)
     offense_dict=remote_offense_data.to_dict(orient="records")
     remote_ward_data = pd.read_sql("SELECT * FROM dc_wards", conn)
     ward_dict=remote_ward_data.to_dict(orient="records")
@@ -97,7 +97,7 @@ def offense_data():
 
 @app.route("/charts_data")
 def num_crimes():
-    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all LIMIT 1000"
+    query_all=f"SELECT OFFENSE,END_DATE,WARD FROM crime_incidents_all WHERE OFFENSE IN ('ASSAULT W/DANGEROUS WEAPON', 'SEX ABUSE', 'HOMICIDE', 'ROBBERY')"
     charts_crime_data = pd.read_sql(query_all, conn)
     print(charts_crime_data.to_dict(orient="records"))
     return(jsonify(charts_crime_data.to_dict(orient="records")))
@@ -120,6 +120,11 @@ def index2():
 @app.route("/line_chart")
 def index3():
     return render_template("index3.html")
+
+#to come!!!!
+@app.route("/bios")
+def bios():
+    return render_template("bios.html")
 
 #@app.route("/metadata/<sample>")
 #def sample_metadata(sample):
