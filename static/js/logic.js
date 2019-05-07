@@ -3,7 +3,7 @@ const API_ONE = "pk.eyJ1Ijoia3VsaW5pIiwiYSI6ImNpeWN6bjJ0NjAwcGYzMnJzOWdoNXNqbnEi
 
 var myMap = L.map("map-crime", {
   center: [38.9072, -77.0369],
-  zoom: 11
+  zoom: 12
 });
 
 // Adding tile layer to the map
@@ -29,8 +29,12 @@ var baseURL="/data"
 
 var layer;
 function buildCharts(filter) {
-  var chart_url=baseURL.concat("?OFFENSE='",filter.offense,"'&WARD=",filter.ward.toString())
-  console.log(filter.offense);
+  if (filter.offense==="All"){
+    var chart_url=baseURL.concat("?OFFENSE=",filter.offense,"&WARD=",filter.ward.toString());
+  }
+  else{
+    var chart_url=baseURL.concat("?OFFENSE='",filter.offense,"'&WARD=",filter.ward.toString());
+  }
   //building the map
   d3.json(chart_url).then((response) => {
     var markers = L.markerClusterGroup();

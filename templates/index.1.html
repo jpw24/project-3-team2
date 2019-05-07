@@ -83,28 +83,63 @@
          </a>
         </div>
       </div>
-        <div class="col-md-6">
-            <h2>DC Crime Occurrences Over the Year</h2>
-            <h4>Access this page to see which months crime occurs more frequently in each ward.</h4>
-          <a href="/line_chart">
-            <!--need to do the below for ALL IMAGES not in the html-->
-            <img src="{{ url_for('static', filename='images/line_chart.JPG') }}" alt="DC Crime Occurences Over the Year"width="600" height="300"></a>
-        </div>
-        <div class="col-md-6">
+      <!--this is where the line chart for crime goes-->
+      <div class="col-md-12 text-center">
+          <br>
+          <br>
+          <br>
+        <h2>DC Crime Occurrences Over the Year</h2>
+        <h4>Access this page to see which months crime occurs more frequently in each ward.</h4>
+        <br>
+        <br>
+        <br>
+      <div class="col-md-4">
+        <h4>In Washington DC, all crime and violent crime happens across all wards, or sections, of the city. The highest concentration of ALL crime is in Ward 2, however, when you observe only violent crime, Ward 7 and Ward 8 have the most occurrences of crime. Ward 3 has the least concentration of violent crime. When observing the time of year, October is the month with the most crime, while February has the least.</h4>
+      </div>
+      <div class="col-md-8">
+        <a href="/line_chart">
+          <img src="{{ url_for('static', filename='images/line_chart.JPG') }}" alt="DC Crime Occurrences Over the Year" width="600" height="300"></a>
+       </a>
+      </div>
+    </div>
+      <!--this is where the time wheel for crime goes-->
+      <div class="col-md-12 text-center">
+          <br>
+          <br>
+          <br>
           <h2>DC Crime Threat Analysis</h2>
           <h4>Access this page to see what times of day have the highest concentration of crime.</h4>
-          <a href="/time_wheel">
-            <img src="{{ url_for('static', filename='images/time_wheel.JPG') }}" alt="DC Threat Level Time Wheel" width="400" height="300"></a>
-         </a>
-        </div>
-        <div class="col-md-6">
-            <h2>DC Crime Placeholder text</h2>
-            <h4>Access this page to see ____________________.</h4>
-          <a href="/">
-            <img src="{{ url_for('static', filename='images/machine_learning.JPG') }}" alt="DC Predictive Model"width="600" height="300"> </a>
-         </a>
-        </div>
+        <br>
+        <br>
+        <br>
+      <div class="col-md-4">
+        <h4>A time wheel is a visualization used readily in the military to assess threats. Our time wheel analyzes the time of day that has the most crime. Our analysis found some unexpected trends.</h4>
       </div>
+      <div class="col-md-8">
+        <a href="/time_wheel">
+          <img src="{{ url_for('static', filename='images/time_wheel.JPG') }}" alt="DC Threat Level Time Wheel" width="600" height="300"></a>
+       </a>
+      </div>
+    </div>
+    <!--this is where the machine learning algorithm for crime goes-->
+      <div class="col-md-12 text-center">
+          <br>
+          <br>
+          <br>
+          <h2>DC Crime Placeholder text</h2>
+          <h4>Access this page to see ____________________.</h4>
+        <br>
+        <br>
+        <br>
+      <div class="col-md-4">
+        <h4>Tim ran a machine learning algorithm to attempt to predict where crime is most likely to occur.</h4>
+      </div>
+      <div class="col-md-8">
+        <a href="/time_wheel">
+          <img src="{{ url_for('static', filename='images/machine_learning.JPG') }}" alt="DC Predictive Model" width="600" height="300"></a>
+       </a>
+      </div>
+    </div>
     </div>
   </div>
 
