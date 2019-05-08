@@ -6,7 +6,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-</head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"></head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,7 +18,7 @@
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/">Home </a>
                 </li>
                 <li class="nav-item">
@@ -26,7 +27,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/time_wheel">Time Wheel</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/line_chart">Crime Occurrences Analysis<span class="sr-only">(current)</span></a>
                 </li>
                 <ul class="navbar-nav ml-auto">
@@ -35,13 +36,13 @@
             </div>
             </nav>
 
+<div class="hero-image">
+        <div class="hero-text">
+            <h1>DC Crime Data Dashboard</h1>
+            <p>Use the interactive charts below to explore the dataset</p>
+        </div>
+        </div>
     <div class="container">
-    <div class="row">
-            <div class="col-md-12 jumbotron text-center">
-                <h1>DC Crime Data Dashboard</h1>
-                <p>Use the interactive charts below to explore the dataset</p>
-            </div>
-            </div>
         <br />
         <div class="row">
             <div clas="col-md-8 text-center">
