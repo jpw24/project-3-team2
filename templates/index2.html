@@ -3,86 +3,18 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/code.js') }}"></script>
-    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/timewheel.css') }}">
 
 </head>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
-body {
-  font-size: 30px;
-  font-family: 'Times New Roman';
-  color: black;
-  /* background-color: #111; */
-  overflow: hidden;
-  overflow-y: scroll;
-}
 
 
-.pie-container {
-  transition: padding .7s ease;
-  padding: 10px 13%;
-  height: 50%;
-  width: 50%;
-}
 
-}
-#pieChart {
-  //border: green 4px solid;
-  //border-radius: 50%;
-  max-width: none !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
- 
 
-  svg {
-    overflow: visible;
-    transition: width .7s ease;
-  }
 
-  path {
-    cursor: pointer;
-  }
-  
-  // inner-radius value sent to javascript
-  counter-reset: break-point 80; 
-}
-
-#pieText {
-  //border: 1px dotted;
-  overflow: visible;      // to see shadow
-  //white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  //align-items: center;
-
-  .panel {
-    background-color: #111;
-    border: groove 4px #222;
-    box-shadow: 8px 10px 20px #000,
-      4px 5px 25px #000;
-    width: 100%;
-    height: 60%;
-    border-radius: 7px;
-    padding: 0 3px;
-    float: left;
-    transition: height .7s ease, padding .7s ease;
-    perspective: 650px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-.content-wrapper {
-  overflow: hidden;
-  transform-style: preserve-3d;
-  border: 0px solid blue;
-    background-color: white;
-}
 
 
 
@@ -382,14 +314,15 @@ body {
             </ul>
         </div>
         </nav>
-<div class="pie-container">
-
-  <div class="row">
-    <div class="col-md-12 jumbotron text-center">
-      <h1>DC Crime Data Dashboard</h1>
-      <p>Use the interactive charts below to explore the dataset</p>
+  <div class="hero-image">
+      <div class="hero-text">
+        <h1>DC Crime Data Dashboard</h1>
+        <p>Use the interactive charts below to explore the dataset</p>
+      </div>
     </div>
-  </div>
+<div class="container">
+</div>
+  <div class="pie-container">
     <div class="row">
       <div class="col-md-5" id="pieChart"></div>
       <div id="pieText" class="col-md-7 text-container">
