@@ -15,13 +15,13 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 # Config variables- change whne uploading!!!!
-#from config import remote_db_endpoint, remote_db_port
-#from config import remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd
-remote_db_endpoint=os.environ['remote_db_endpoint']
-remote_db_port=os.environ['remote_db_port']
-remote_dccrime_dbname=os.environ['remote_dccrime_dbname']
-remote_dccrime_dbpwd=os.environ['remote_dccrime_dbpwd']
-remote_dccrime_dbuser=os.environ['remote_dccrime_dbuser']
+from config import remote_db_endpoint, remote_db_port
+from config import remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd
+#remote_db_endpoint=os.environ['remote_db_endpoint']
+#remote_db_port=os.environ['remote_db_port']
+#remote_dccrime_dbname=os.environ['remote_dccrime_dbname']
+#remote_dccrime_dbpwd=os.environ['remote_dccrime_dbpwd']
+#remote_dccrime_dbuser=os.environ['remote_dccrime_dbuser']
 
 
 # Import Pandas
@@ -72,7 +72,7 @@ def crime_data():
     offense = request.args.get("OFFENSE")
     # Use Pandas to perform the sql query
     if ward=="All" and offense=="All":
-        query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE OFFENSE IN ('ASSAULT W/DANGEROUS WEAPON', 'SEX ABUSE', 'HOMICIDE', 'ROBBERY') LIMIT 9000"
+        query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE OFFENSE IN ('ASSAULT W/DANGEROUS WEAPON', 'SEX ABUSE', 'HOMICIDE', 'ROBBERY')"
     elif ward=="All":
         query_all=f"SELECT CCN,CENSUS_TRACT,END_DATE,LATITUDE,LONGITUDE,METHOD,OFFENSE,PSA,REPORT_DAT,SHIFT,START_DATE,WARD FROM crime_incidents_all WHERE OFFENSE = {offense}"
     elif offense=="All":
