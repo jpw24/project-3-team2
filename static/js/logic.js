@@ -31,9 +31,10 @@ var layer;
 function buildCharts(filter) {
   if (filter.offense==="All"){
     var chart_url=baseURL.concat("?OFFENSE=",filter.offense,"&WARD=",filter.ward.toString());
+    console.log("Jimmy");
   }
   else{
-    var chart_url=baseURL.concat("?OFFENSE='",filter.offense,"'&WARD=",filter.ward.toString());
+    var chart_url=baseURL.concat("?OFFENSE='",filter.offense.toString(),"'&WARD=",filter.ward.toString());
   }
   //building the map
   d3.json(chart_url).then((response) => {
