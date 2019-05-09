@@ -2,30 +2,14 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DC Crime Data Dashboard</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <!-- Leaflet JS & CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-  crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-  crossorigin=""></script>
-
-  <!-- d3 JS -->
   <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
 
-  <!-- Marker Cluster JS & CSS -->
-  <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
-
-  <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
@@ -74,6 +58,7 @@
           <br>
           <br>
           <br>
+        </div>
         <div class="col-md-4">
           <h4>Violent crime in DC has gone down 53.3% since 1995, according to the "Uniform Crime Report" conducted by the FBI. However, violent crime is stll three times the national average. While violent crime still plagues the city, administrators are working to mitigate the violent crime rate.</h4>
         </div>
@@ -82,7 +67,6 @@
             <img src="{{ url_for('static', filename='images/crime_map.JPG') }}" alt="DC Crime Map"width="600" height="300"></a>
          </a>
         </div>
-      </div>
       <!--this is where the line chart for crime goes-->
       <div class="col-md-12 text-center">
           <br>
@@ -93,6 +77,7 @@
         <br>
         <br>
         <br>
+      </div>
       <div class="col-md-4">
         <h4>In Washington DC, all crime and violent crime happens across all wards, or sections, of the city. The highest concentration of ALL crime is in Ward 2, however, when you observe only violent crime, Ward 7 and Ward 8 have the most occurrences of crime. Ward 3 has the least concentration of violent crime. When observing the time of year, October is the month with the most crime, while February has the least.</h4>
       </div>
@@ -101,7 +86,6 @@
           <img src="{{ url_for('static', filename='images/line_chart.JPG') }}" alt="DC Crime Occurrences Over the Year" width="600" height="300"></a>
        </a>
       </div>
-    </div>
       <!--this is where the time wheel for crime goes-->
       <div class="col-md-12 text-center">
           <br>
@@ -112,6 +96,7 @@
         <br>
         <br>
         <br>
+      </div>
       <div class="col-md-4">
         <h4>A time wheel is a visualization used readily in the military to assess threats. Our time wheel analyzes the time of day that has the most crime. Our analysis found some unexpected trends.</h4>
       </div>
@@ -120,7 +105,6 @@
           <img src="{{ url_for('static', filename='images/time_wheel.JPG') }}" alt="DC Threat Level Time Wheel" width="600" height="300"></a>
        </a>
       </div>
-    </div>
     <!--this is where the machine learning algorithm for crime goes-->
       <div class="col-md-12 text-center">
           <br>
@@ -131,15 +115,15 @@
         <br>
         <br>
         <br>
+      </div>
       <div class="col-md-4">
         <h4>Tim ran a machine learning algorithm to attempt to predict where crime is most likely to occur.</h4>
       </div>
       <div class="col-md-8">
         <a href="/time_wheel">
-          <img src="{{ url_for('static', filename='images/machine_learning.JPG') }}" alt="DC Predictive Model" width="600" height="300"></a>
+          <img src="{{ url_for('static', filename='images/machine_learning.PNG') }}" alt="DC Predictive Model" width="600" height="300"></a>
        </a>
       </div>
-    </div>
     </div>
   </div>
 

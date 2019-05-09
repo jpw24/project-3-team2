@@ -2,11 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>DC Crime Data Dashboard</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>DC Crime Data Dashboard</title>
   <!-- Leaflet JS & CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
@@ -22,11 +18,14 @@
   <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+  <title>DC Crime Data Dashboard</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
 
-  <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-
 
 </head>
 
@@ -39,10 +38,10 @@
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/">Home </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/map">Crime Map<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -56,20 +55,23 @@
             </ul>
         </div>
         </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
+  <div class="hero-image">
+      <div class="hero-text">
         <h1>DC Crime Data Dashboard</h1>
         <p>Use the interactive charts below to explore the dataset</p>
       </div>
     </div>
+  <div class="container">
     <div class="row">
+      <br>
+      <br>
       <div class="col-md-4">
         <div class="well">
-          <h5 style="color: black">Filter by Crime Type and Ward:</h5>
+          <br><br>
+          <h5>Filter by Crime Type and Ward:</h5>
           <select style="color: black" id="selType"></select>
           <select style="color: black" id="selWard"></select>
-          <button style="color: black" id="submit" type="submit" class="btn btn-default">Plot Data</button>
+          <button id="submit" type="submit" class="btn btn-default">Plot Data</button>
           <!--onchange="optionChanged(this.value)-->
           <!--onchange="optionChanged(this.value)-->
         </div>
@@ -88,7 +90,6 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
   <script src="{{ url_for('static', filename='js/config.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
 
