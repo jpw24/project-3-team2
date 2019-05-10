@@ -67,7 +67,7 @@ def index():
 #reena's endpoint
 @app.route("/ward_crimes")
 def line_chart():
-    return render_template("line_chart.html")
+    return render_template("index3.html")
 
 @app.route("/data")
 def crime_data():
