@@ -337,7 +337,7 @@ if (crime.END_DATE.slice(6,7)==="12"){
   });
 
 
-var canvas = document.getElementById("barChart");
+var canvas = document.getElementById("lineChart");
 var ctx = canvas.getContext('2d');
 
 // Global Options:
