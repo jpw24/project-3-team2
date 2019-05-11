@@ -53,7 +53,7 @@ d3.json("/charts_data").then((response) => {
     }
 
     // Global Options:
-    Chart.defaults.global.defaultFontColor = 'black';
+    Chart.defaults.global.defaultFontColor = 'white';
     Chart.defaults.global.defaultFontSize = 16;
     var data = {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
