@@ -14,6 +14,35 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
   accessToken: API_ONE
 }).addTo(myMap);
 
+d3.json("https://raw.githubusercontent.com/jpw24/project-3-team2/master/bg_test.geojson", function(data) {
+    // Create a new choropleth layer
+    geojson = L.choropleth(data, {
+  
+      // Define what  property in the features to use
+      valueProperty: "pct_poverty",
+  
+      // Set color scale
+      scale: ["#ffffb2", "#b10026"],
+  
+      // Number of breaks in step range
+      steps: 10,
+  
+      // q for quartile, e for equidistant, k for k-means
+      style: {
+        // Border color
+        color: "#fff",
+        weight: 1,
+        fillOpacity: 0.8
+      }
+      //,
+      // Binding a pop-up to each layer
+      //onEachFeature: function(feature, layer) {
+      //  layer.bindPopup(feature.properties.LOCALNAME + ", " + feature.properties.State + "<br>Median Household Income:<br>" +
+      //    "$" + feature.properties.MHI);
+      //}
+    }).addTo(myMap)
+});
+
 // Store API query variables
 
 // Grab the data with d3
@@ -21,7 +50,8 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
   //console.log(response);
   // Create a new marker cluster group
 
-});*/
+});
+*/
 
 //INFO FOR JIMMY
 
