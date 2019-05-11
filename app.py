@@ -57,12 +57,12 @@ conn = engine.connect()
 @app.route("/")
 def home():
     """Return the homepage."""
-    return render_template("index.1.html")
+    return render_template("home.html")
 
 @app.route("/map")
 def index():
     """Return the homepage."""
-    return render_template("index.html")
+    return render_template("map.html")
 
 
 @app.route("/data")
@@ -115,7 +115,7 @@ def ward_data():
 @app.route("/time_wheel")
 def index2():
     
-    return render_template("index2.html")
+    return render_template("time_wheel.html")
 
 @app.route("/machine_learning")
 def machine_learning():
@@ -124,7 +124,7 @@ def machine_learning():
 
 @app.route("/line_chart")
 def index3():
-    return render_template("index3.html")
+    return render_template("line_chart.html")
 
 #to come!!!!
 @app.route("/bios")
