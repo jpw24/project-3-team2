@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<head>
+    <title>DC Crime Data Dashboard</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"></head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-nav" href="/">Justice League</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/map">Crime Map</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/time_wheel">Time Wheel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/line_chart">Crime Occurrences Analysis</a>
+                </li>
+                <li class="nav-item active">
+                        <a class="nav-link" href="/machine_learning">Machine Learning<span class="sr-only">(current)</span></a>
+                    </li>
+                <ul class="navbar-nav ml-auto">
+                    <a class="nav-link" href="/bios">Get To Know the Team</a>
+                </ul>
+            </div>
+            </nav>
+
+        <div class="hero-image">
+                <div class="hero-text">
+                    <h1>DC Crime Data Dashboard</h1>
+                    <p>Use the interactive charts below to explore the dataset</p>
+                </div>
+        </div>
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h2>(Our Attempt at a) Machine Learning Algorithm for DC Crime</h2>
+                        <p> A series of linear regression analyses will be conducted on a dataset of violent crime incidents and socioeconomic variables counted at the Census “block group” geography level. This step will allow for a visual representation of variable relationship. The “test, train, split” method will then be applied to segment the data into training and testing data, with a linear regression model being generated to fit the training data and be scored against the testing data. This process will aim to see if the socioeconomic variables (“X” in our model) could be used to predict violent crime (“y”) frequencies. Mean squared error, r-squared scores, and residual plots will be used to assess the effectiveness of the models. <br> <br> This analysis is predicated on research that negative societal conditions of <a href="https://link.springer.com/chapter/10.1007/978-0-306-48039-3_4">poverty</a>, and <a href="https://www.nber.org/papers/w20593">residential housing vacancy</a> may be strongly correlated with violent crime rates. Whether these conditions are predictors or results of violent crime, or are just in co-existence in certain urban areas, we believe that studying these variables could yield interesting relationships. The analysis includes five years of violent crime data (2014-2018) collected from the Metropolitan Police Department and socioeconomic data downloaded from the 2012-2016 American Community Survey Census Bureau 5-year Estimates, conducted by the Census Bureau.</p>
+                    </div> 
+                </div>
+            </div>
+    </body>
+    </html>
