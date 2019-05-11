@@ -117,6 +117,11 @@ def index2():
     
     return render_template("index2.html")
 
+@app.route("/machine_learning")
+def machine_learning():
+    return render_template("machine_learning.html")
+
+
 @app.route("/line_chart")
 def index3():
     return render_template("index3.html")
