@@ -14,54 +14,213 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
   accessToken: API_ONE
 }).addTo(myMap);
 
-d3.json("https://raw.githubusercontent.com/jpw24/project-3-team2/master/bg_test.geojson", function(data) {
-    // Create a new choropleth layer
-    geojson = L.choropleth(data, {
-  
-      // Define what  property in the features to use
-      valueProperty: "pct_poverty",
-  
-      // Set color scale
-      scale: ["#ffffb2", "#b10026"],
-  
-      // Number of breaks in step range
-      steps: 10,
-  
-      // q for quartile, e for equidistant, k for k-means
-      style: {
-        // Border color
-        color: "#fff",
-        weight: 1,
-        fillOpacity: 0.8
-      }
-      //,
-      // Binding a pop-up to each layer
-      //onEachFeature: function(feature, layer) {
-      //  layer.bindPopup(feature.properties.LOCALNAME + ", " + feature.properties.State + "<br>Median Household Income:<br>" +
-      //    "$" + feature.properties.MHI);
-      //}
-    }).addTo(myMap)
+
+ward_link = "https://opendata.arcgis.com/datasets/0ef47379cbae44e88267c01eaec2ff6e_31.geojson"
+
+d3.json(ward_link).then(function(data) {
+
+  function styleInfoWards(feature) {
+    return {
+      fillOpacity: 0,
+      color: "#808080",
+      stroke: true,
+      weight: 4
+    };
+  }
+  L.geoJson(data, {
+    style: styleInfoWards,
+  }).addTo(myMap);
 });
 
-// Store API query variables
 
-// Grab the data with d3
-/*d3.json(baseURL).then(function (response) {
-  //console.log(response);
-  // Create a new marker cluster group
 
-});
-*/
+
+
+
+
+
+
+
+
+
+var link = "https://raw.githubusercontent.com/jpw24/project-3-team2/master/bg_test.geojson";
+
+var poverty_layer = new L.LayerGroup();
+var unemployment_layer = new L.LayerGroup();
+var vacancy_layer = new L.LayerGroup();
+
+var overlays = {
+  "Poverty": poverty_layer,
+  "Unemployment": unemployment_layer,
+  "Housing Vacancy": vacancy_layer,
+};
+
+L
+  .control
+  .layers(overlays)
+  .addTo(myMap);
+
+// Grabbing our GeoJSON data..
+d3.json(link).then(function(data) {
+
+function styleInfoPoverty(feature) {
+  return {
+    opacity: .9,
+    fillOpacity: .7,
+    fillColor: getColorPoverty(feature.properties.pct_poverty),
+    color: "#000000",
+    stroke: true,
+    weight: 0.1
+  };
+}
+
+// Determines the color of the marker based on the magnitude of the earthquake.
+function getColorPoverty(magnitude) {
+  switch (true) {
+  case magnitude > 40:
+    return "#7a0177";
+  case magnitude > 30:
+    return "#c51b8a";
+  case magnitude > 20:
+    return "#f768a1";
+  case magnitude > 10:
+    return "#fbb4b9";
+  default:
+    return "#feebe2";
+  }
+}
+
+function onEachFeature(feature, layer) {
+  layer.bindPopup("<h5>" + "Percent in Poverty: " + feature.properties.pct_poverty + "%</h5>");//feature.properties.pct_poverty);
+}
+
+
+L.geoJson(data, {
+  style: styleInfoPoverty,
+  onEachFeature: onEachFeature
+}).addTo(poverty_layer);
+//});
+
+/////////
+
+  function styleInfoUnemployment(feature) {
+    return {
+      opacity: .9,
+      fillOpacity: .7,
+      fillColor: getColorUnemployment(feature.properties.pct_unemployed),
+      color: "#000000",
+      stroke: true,
+      weight: 0.1
+    };
+  }
+  
+  // Determines the color of the marker based on the magnitude of the earthquake.
+  function getColorUnemployment(magnitude) {
+    switch (true) {
+    case magnitude > 30:
+      return "#253494";
+    case magnitude > 20:
+      return "#2c7fb8";
+    case magnitude > 10:
+      return "#41b6c4";
+    case magnitude > 5:
+      return "#a1dab4";
+    default:
+      return "#fffccc";
+    }
+  }
+  
+  function onEachFeatureUn(feature, layer) {
+    layer.bindPopup("<h5>" + "Percent Unemployed: " + feature.properties.pct_unemployed + "%</h5>");//feature.properties.pct_poverty);
+  }
+
+  L.geoJson(data, {
+    style: styleInfoUnemployment,
+    onEachFeature: onEachFeatureUn
+  }).addTo(unemployment_layer);
+
+  function styleInfoVacancy(feature) {
+    return {
+      opacity: .9,
+      fillOpacity: .7,
+      fillColor: getColorVacancy(feature.properties.pct_vacancy),
+      color: "#000000",
+      stroke: true,
+      weight: 0.1
+    };
+  }
+  
+  // Determines the color of the marker based on the magnitude of the earthquake.
+  function getColorVacancy(magnitude) {
+    switch (true) {
+    case magnitude > 30:
+      return "#006837";
+    case magnitude > 20:
+      return "#31a354";
+    case magnitude > 10:
+      return "#78c679";
+    case magnitude > 5:
+      return "#c2e699";
+    default:
+      return "#fffccc";
+    }
+  }
+  
+  function onEachFeatureVac(feature, layer) {
+    layer.bindPopup("<h5>" + "Percent Housing Vacancy: " + feature.properties.pct_vacancy + "%</h5>");//feature.properties.pct_poverty);
+  }
+
+  L.geoJson(data, {
+    style: styleInfoVacancy,
+    onEachFeature: onEachFeatureVac
+  }).addTo(vacancy_layer);
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //INFO FOR JIMMY
-
 var baseURL="/data"
 
 var layer;
 function buildCharts(filter) {
   if (filter.offense==="All"){
     var chart_url=baseURL.concat("?OFFENSE=",filter.offense,"&WARD=",filter.ward.toString());
-    console.log("Jimmy");
+    //console.log("Jimmy");
   }
   else{
     var chart_url=baseURL.concat("?OFFENSE='",filter.offense.toString(),"'&WARD=",filter.ward.toString());
@@ -78,12 +237,13 @@ function buildCharts(filter) {
       // Set the data location property to a variable
       // Check for location property
       // Add a new marker to the cluster group and bind a pop-up
-      markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]))
-        //.bindPopup("Shift: "+response[i].SHIFT);// + "<hr>" + response[i].cross_street_1 + "<br>" + response[i].cross_street_2);
+      markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]));
+      //.bindPopup("Shift: "+ response[i].SHIFT + "<hr>" + response[i].LONGITUDE + "<br>" + response[i].WARD);
   
     }
     layer=markers;
-
+    
+    
     // Add our marker cluster layer to the map
     myMap.addLayer(markers);
     //markers.clearLayers();
@@ -99,107 +259,6 @@ function buildCharts(filter) {
 //  console.log(users)
 
 }
-
-
-
-//buildCharts();
-/*const otu_ids = data.otu_ids;
-const otu_labels = data.otu_labels;
-const sample_values = data.sample_values;
-
-// Build a Bubble Chart
-var bubbleLayout = {
-  margin: { t: 0 },
-  hovermode: "closest",
-  xaxis: { title: "OTU ID" }
-};
-var bubbleData = [
-  {
-    x: otu_ids,
-    y: sample_values,
-    text: otu_labels,
-    mode: "markers",
-    marker: {
-      size: sample_values,
-      color: otu_ids,
-      colorscale: "Earth"
-    }
-  }
-];
-
-Plotly.plot("bubble", bubbleData, bubbleLayout);
-
-// Build a Pie Chart
-// HINT: You will need to use slice() to grab the top 10 sample_values,
-// otu_ids, and labels (10 each).
-var pieData = [
-  {
-    values: sample_values.slice(0, 10),
-    labels: otu_ids.slice(0, 10),
-    hovertext: otu_labels.slice(0, 10),
-    hoverinfo: "hovertext",
-    type: "pie"
-  }
-];
-
-var pieLayout = {
-  margin: { t: 0, l: 0 }
-};
-
-Plotly.plot("pie", pieData, pieLayout);
-});
-}
-
-/* FILTERING EXAMPLE
-
-var filter = {
-address: 'England',
-name: 'Mark'
-};
-var users = [{
-name: 'John',
-email: 'johnson@mail.com',
-age: 25,
-address: 'USA'
-},
-{
-name: 'Tom',
-email: 'tom@mail.com',
-age: 35,
-address: 'England'
-},
-{
-name: 'Mark',
-email: 'mark@mail.com',
-age: 28,
-address: 'England'
-}
-];
-
-
-
-
-
-
-
-
-
-
-/* THIS COMBINE THE RESULTS OF TWO ENDPOINTS (AT THIS POINT I'M JUST TRYING TO PRINT DATA TO TEST)
-****************************************************************************************/
-
-/*function comboTest(ctype, ward){
-  var url_ctype = `/type/${ctype}`
-  var url_ward = `/location/${ward}`
-
-d3.json(url_ctype).then(function(response) {
-  console.log(response);
-});
-d3.json(url_ward).then(function(response) {
-  console.log(response);
-});
-}
-comboTest("HOMICIDE", 1) */
 
 function init() {
   // Grab a reference to the dropdown select element
@@ -242,7 +301,7 @@ function init() {
       offense: firstOffense,
       ward: firstWard
     };
-    buildCharts(firstFilter); //??
+    buildCharts(firstFilter);
   });
 
 }
