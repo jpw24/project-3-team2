@@ -18,11 +18,11 @@ is_prod = os.environ.get('IS_HEROKU', None)
 
 # Config variables- change whne uploading!!!!
 if is_prod:
-  remote_db_endpoint=os.environ['remote_db_endpoint']
-  remote_db_port=os.environ['remote_db_port']
-  remote_dccrime_dbname=os.environ['remote_dccrime_dbname']
-  remote_dccrime_dbpwd=os.environ['remote_dccrime_dbpwd']
-  remote_dccrime_dbuser=os.environ['remote_dccrime_dbuser']
+  remote_db_endpoint= os.environ.get('remote_db_endpoint')
+  remote_db_port= os.environ.get('remote_db_port')
+  remote_dccrime_dbname= os.environ.get('remote_dccrime_dbname')
+  remote_dccrime_dbpwd= os.environ.get('remote_dccrime_dbpwd')
+  remote_dccrime_dbuser = os.environ.get('remote_dccrime_dbuser')
 else:
   from config import remote_db_endpoint, remote_db_port, remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd
 
