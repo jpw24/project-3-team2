@@ -238,7 +238,8 @@ function buildCharts(filter) {
       // Check for location property
       // Add a new marker to the cluster group and bind a pop-up
       markers.addLayer(L.marker([response[i].LATITUDE, response[i].LONGITUDE]));
-      //.bindPopup("Shift: "+ response[i].SHIFT + "<hr>" + response[i].LONGITUDE + "<br>" + response[i].WARD);
+      //markers.popup("Shift: "+ response[i].OFFENSE);
+      //.bindPopup("Shift: "+ response.SHIFT + "<hr>" + response[i].LONGITUDE + "<br>" + response[i].WARD);
   
     }
     layer=markers;
