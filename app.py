@@ -19,19 +19,22 @@ pymysql.install_as_MySQLdb()
 #if is_prod:
 #=======
 
-
-
 #from config import remote_db_endpoint, remote_db_port
 #from config import remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd
 #>>>>>>> 288c1e00d4f4efeaffac78df3de45f8b23acf117
-#remote_db_endpoint=os.environ['remote_db_endpoint']
-#remote_db_port=os.environ['remote_db_port']
-#remote_dccrime_dbname=os.environ['remote_dccrime_dbname']
-#remote_dccrime_dbpwd=os.environ['remote_dccrime_dbpwd']
-#remote_dccrime_dbuser=os.environ['remote_dccrime_dbuser']
+
+if os.environ.get('remote_db_endpoint') is None:
+    from config import remote_db_endpoint, remote_db_port, remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd   
+else:
+    remote_db_endpoint=os.environ['remote_db_endpoint']
+    remote_db_port=os.environ['remote_db_port']
+    remote_dccrime_dbname=os.environ['remote_dccrime_dbname']
+    remote_dccrime_dbpwd=os.environ['remote_dccrime_dbpwd']
+    remote_dccrime_dbuser=os.environ['remote_dccrime_dbuser']
+
 #<<<<<<< HEAD
 #else:
-from config import remote_db_endpoint, remote_db_port, remote_dccrime_dbname, remote_dccrime_dbuser, remote_dccrime_dbpwd
+#
 #=======
 
 #>>>>>>> 288c1e00d4f4efeaffac78df3de45f8b23acf117
